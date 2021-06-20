@@ -374,8 +374,7 @@ function initDashboard () {
       enableKeyEvents: true,
       cls: 'completer-input-field',
       listeners: {
-        keypress: completerKeyPress,
-        specialkey: completerKeyPress,
+        keydown: completerKeyPress,
         afterrender: focusCompleter
       }
     });
@@ -1915,6 +1914,7 @@ function graphClicked(graphView, graphIndex, element, evt) {
           header: 'Target',
           dataIndex: 'target',
           width: gridWidth - 90,
+          renderer: 'htmlEncode',
           editor: {xtype: 'textfield'}
         },
         {
@@ -3015,8 +3015,8 @@ function setDashboardName(name) {
 
     document.title = name + ' - Graphite Dashboard';
     changeHash(name);
-    navBar.setTitle(name + ' - (' + dashboardURL + ')');
-    saveButton.setText('Save "' + name + '"');
+    navBar.setTitle(htmlEncode(name + ' - (' + dashboardURL + ')'));
+    saveButton.setText(htmlEncode('Save "' + name + '"'));
     saveButton.enable();
   }
 }
@@ -3153,7 +3153,7 @@ function showDashboardFinder() {
 
   dashboardsList = new Ext.list.ListView({
     columns: [
-      {header: 'Dashboard', width: 1.0, dataIndex: 'name', sortable: false}
+      {header: 'Dashboard', width: 1.0, dataIndex: 'name', sortable: false, tpl:'{name:htmlEncode}'}
     ],
     columnSort: false,
     emptyText: 'No dashboards found',

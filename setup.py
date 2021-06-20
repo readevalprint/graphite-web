@@ -48,32 +48,34 @@ with open('setup.cfg', 'w') as f:
     cf.write(f)
 
 if os.environ.get('USE_SETUPTOOLS'):
-  from setuptools import setup
-  setup_kwargs = dict(zip_safe=0)
+    from setuptools import setup
+    setup_kwargs = dict(zip_safe=0)
 
 else:
-  from distutils.core import setup
-  setup_kwargs = dict()
+    from distutils.core import setup
+    setup_kwargs = dict()
 
 
 storage_dirs = []
 
 for subdir in ('whisper/dummy.txt', 'ceres/dummy.txt', 'rrd/dummy.txt', 'log/dummy.txt', 'log/webapp/dummy.txt'):
-  storage_dirs.append( ('storage/%s' % subdir, []) )
+    storage_dirs.append( ('storage/%s' % subdir, []) )
 
 webapp_content = defaultdict(list)
 
 for root, dirs, files in os.walk('webapp/content'):
-  for filename in files:
-    filepath = os.path.join(root, filename)
-    webapp_content[root].append(filepath)
+    for filename in files:
+        filepath = os.path.join(root, filename)
+        webapp_content[root].append(filepath)
 
 conf_files = [ ('conf', glob('conf/*.example')) ]
 examples = [ ('examples', glob('examples/example-*')) ]
 
+
 def read(fname):
     with open(os.path.join(os.path.dirname(__file__), fname)) as f:
         return f.read()
+
 
 try:
     setup(
@@ -115,7 +117,9 @@ try:
         ['templates/*', 'local_settings.py.example']},
       scripts=glob('bin/*'),
       data_files=list(webapp_content.items()) + storage_dirs + conf_files + examples,
-      install_requires=['Django>=1.8,<2.3', 'django-tagging==0.4.3', 'pytz', 'pyparsing', 'cairocffi', 'urllib3', 'scandir', 'six'],
+      install_requires=['Django>=1.8,<3.1', 'django-tagging==0.4.3', 'pytz',
+                        'pyparsing', 'cairocffi', 'urllib3',
+                        'scandir;python_version<"3.5"', 'six'],
       classifiers=[
           'Intended Audience :: Developers',
           'Natural Language :: English',
@@ -131,7 +135,7 @@ try:
           'Programming Language :: Python :: 3.8',
           'Programming Language :: Python :: Implementation :: CPython',
           'Programming Language :: Python :: Implementation :: PyPy',
-          ],
+      ],
       **setup_kwargs
     )
 finally:

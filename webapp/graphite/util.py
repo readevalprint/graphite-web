@@ -162,17 +162,17 @@ if not PY3:
       'copy_reg': set(['_reconstructor']),
       '__builtin__': set(['object', 'list', 'set']),
       'collections': set(['deque']),
-      'graphite.render.datalib': set(['TimeSeries']),
+      'graphite.render.datalib': set(['TimeSeries', 'Tags']),
       'graphite.intervals': set(['Interval', 'IntervalSet']),
     }
 
     @classmethod
     def find_class(cls, module, name):
-      if not module in cls.PICKLE_SAFE:
+      if module not in cls.PICKLE_SAFE:
         raise pickle.UnpicklingError('Attempting to unpickle unsafe module %s' % module)
       __import__(module)
       mod = sys.modules[module]
-      if not name in cls.PICKLE_SAFE[module]:
+      if name not in cls.PICKLE_SAFE[module]:
         raise pickle.UnpicklingError('Attempting to unpickle unsafe class %s' % name)
       return getattr(mod, name)
 
@@ -196,16 +196,19 @@ else:
       'copy_reg': set(['_reconstructor']),
       'builtins': set(['object', 'list', 'set']),
       'collections': set(['deque']),
-      'graphite.render.datalib': set(['TimeSeries']),
+      'graphite.render.datalib': set(['TimeSeries', 'Tags']),
       'graphite.intervals': set(['Interval', 'IntervalSet']),
     }
 
+    def __init__(self, file):
+        super().__init__(file, encoding='utf8')
+
     def find_class(self, module, name):
-      if not module in self.PICKLE_SAFE:
+      if module not in self.PICKLE_SAFE:
         raise pickle.UnpicklingError('Attempting to unpickle unsafe module %s' % module)
       __import__(module)
       mod = sys.modules[module]
-      if not name in self.PICKLE_SAFE[module]:
+      if name not in self.PICKLE_SAFE[module]:
         raise pickle.UnpicklingError('Attempting to unpickle unsafe class %s' % name)
       return getattr(mod, name)
 
@@ -360,7 +363,7 @@ def _jsonResponse(data, queryParams, status=200, encoder=None, default=None):
       sort_keys=bool(queryParams.get('pretty')),
       cls=encoder,
       default=default
-    ) if data is not None else 'null',
+    ),
     content_type='application/json',
     status=status
   )

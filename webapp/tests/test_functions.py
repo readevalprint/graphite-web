@@ -14,9 +14,9 @@ from .base import TestCase
 from django.conf import settings
 
 try:
-  from django.urls import reverse
+    from django.urls import reverse
 except ImportError:  # Django < 1.10
-  from django.core.urlresolvers import reverse
+    from django.core.urlresolvers import reverse
 
 from graphite.errors import NormalizeEmptyResultError
 from graphite.functions import _SeriesFunctions, loadFunctions, safe
@@ -39,9 +39,9 @@ def return_less(series, value):
 class FunctionsTest(TestCase):
 
     def setUp(self):
-      super(FunctionsTest, self).setUp()
-      # Display more diff.
-      self.maxDiff = 1024
+        super(FunctionsTest, self).setUp()
+        # Display more diff.
+        self.maxDiff = 1024
 
     #
     # Test safeSum()
@@ -311,7 +311,7 @@ class FunctionsTest(TestCase):
 
     def test_safeAbs_empty_list(self):
         with self.assertRaises(TypeError):
-          safe.safeAbs([])
+            safe.safeAbs([])
 
     def test_safeAbs_pos_number(self):
         self.assertEqual(safe.safeAbs(1), 1)
@@ -510,18 +510,19 @@ class FunctionsTest(TestCase):
         )
 
         expectedResult = [
-        [
-            TimeSeries('collectd.test-db1.load.value',0,1,1,[1,10,11]),
-            TimeSeries('collectd.test-db2.load.value',0,1,1,[2,20,21]),
-            TimeSeries('collectd.test-db3.load.value',0,1,1,[3,30,31]),
-            TimeSeries('collectd.test-db4.load.value',0,1,1,[4,40,41]),
-        ],
-        [
-            TimeSeries('collectd.test-db1.load.value',0,1,1,[1,5,9]),
-            TimeSeries('collectd.test-db2.load.value',0,1,1,[2,6,10]),
-            TimeSeries('collectd.test-db3.load.value',0,1,1,[3,7,11]),
-            TimeSeries('collectd.test-db4.load.value',0,1,1,[4,8,12]),
-        ]]
+            [
+                TimeSeries('collectd.test-db1.load.value',0,1,1,[1,10,11]),
+                TimeSeries('collectd.test-db2.load.value',0,1,1,[2,20,21]),
+                TimeSeries('collectd.test-db3.load.value',0,1,1,[3,30,31]),
+                TimeSeries('collectd.test-db4.load.value',0,1,1,[4,40,41]),
+            ],
+            [
+                TimeSeries('collectd.test-db1.load.value',0,1,1,[1,5,9]),
+                TimeSeries('collectd.test-db2.load.value',0,1,1,[2,6,10]),
+                TimeSeries('collectd.test-db3.load.value',0,1,1,[3,7,11]),
+                TimeSeries('collectd.test-db4.load.value',0,1,1,[4,8,12]),
+            ],
+        ]
         results = functions.matchSeries(copy.deepcopy(seriesList1), copy.deepcopy(seriesList2))
         for i, (series1, series2) in enumerate(results):
             self.assertEqual(series1, expectedResult[0][i])
@@ -992,9 +993,9 @@ class FunctionsTest(TestCase):
         result = functions.asPercent({}, seriesList)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -1029,8 +1030,8 @@ class FunctionsTest(TestCase):
 
         for i, series in enumerate(result):
             for k, v in enumerate(series):
-              if type(v) is float:
-                series[k] = round(v,2)
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -1074,9 +1075,9 @@ class FunctionsTest(TestCase):
         result = functions.asPercent({}, seriesList, seriesList2)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -1128,9 +1129,9 @@ class FunctionsTest(TestCase):
         result = functions.asPercent({}, seriesList, seriesList2)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -1204,9 +1205,9 @@ class FunctionsTest(TestCase):
         result = functions.asPercent({}, seriesList, seriesList2, 1)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -1257,9 +1258,9 @@ class FunctionsTest(TestCase):
         result = functions.asPercent({}, seriesList, None, 1)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -1347,12 +1348,13 @@ class FunctionsTest(TestCase):
         result = functions.divideSeries({}, seriesList, seriesList2)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
+    # seriesLists tests
     def test_divideSeriesLists(self):
         seriesList1 = self._gen_series_list_with_data(
             key=[
@@ -1384,12 +1386,125 @@ class FunctionsTest(TestCase):
         ]
 
         result = functions.divideSeriesLists({}, seriesList1, seriesList2)
-
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
+        self.assertEqual(result, expectedResult)
 
+    def _get_aggregateSeriesLists_input_data(self):
+        seriesList1 = self._gen_series_list_with_data(
+            key=[
+                'mining.other.shipped',
+                'mining.diamond.shipped',
+                'mining.graphite.shipped',
+                'mining.carbon.shipped',
+            ],
+            end=1,
+            data=[
+                [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+                [0,-1,-1,2,3,-5,-8,13,21,-34,-55,89,144,-233,-377],
+                [None,2.3,None,-4.5,None,6.7,None,-8.9,None,10.111,None,-12.13,None,14.15,None,-16.17,None,18.19,None,-20.21],
+                [3.141,None,2.718,6.022,6.674,None,6.626,1.602,2.067,9.274,None,5.555]
+            ]
+        )
+        seriesList2 = self._gen_series_list_with_data(
+            key=[
+                'mining.other.extracted',
+                'mining.diamond.extracted',
+                'mining.graphite.extracted',
+                'mining.carbon.extracted',
+            ],
+            end=1,
+            data=[
+                [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+                [0,1,-1,2,-3,5,-8,13,-21,34,-55,89,-144,233,-377],
+                [None,9,8,None,6,None,4,3,2,None,0,-1,None,-3,-4,-5,None,None,-8,-9,-10],
+                [7.22,None,2.718,None,2.54,-1.234,-6.16,-13.37,None,-7.77,0.128,8.912]
+            ]
+        )
+        return seriesList1, seriesList2
+
+    def test_sumSeriesLists(self):
+        seriesList1, seriesList2 = self._get_aggregateSeriesLists_input_data()
+        expectedResult = [
+            TimeSeries('sumSeries(mining.other.shipped,mining.other.extracted)',0,1,1, [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40]),
+            TimeSeries('sumSeries(mining.diamond.shipped,mining.diamond.extracted)',0,1,1, [0,0,-2,4,0,0,-16,26,0,0,-110,178,0,0,-754]),
+            TimeSeries('sumSeries(mining.graphite.shipped,mining.graphite.extracted)',0,1,1, [None,11.3,8,-4.5,6,6.7,4,-5.9,2,10.11,0,-13.13,None,11.15,-4,-21.17,None,18.19,-8,-29.21,-10]),
+            TimeSeries('sumSeries(mining.carbon.shipped,mining.carbon.extracted)',0,1,1, [10.36,None,5.44,6.02,9.21,-1.23,0.47,-11.77,2.07,1.5,0.13,14.47]),
+        ]
+        result = functions.sumSeriesLists({}, seriesList1, seriesList2)
+        for i, series in enumerate(result):
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v, 2)
+        self.assertEqual(result, expectedResult)
+
+    def test_diffSeriesLists(self):
+        seriesList1, seriesList2 = self._get_aggregateSeriesLists_input_data()
+        expectedResult = [
+            TimeSeries('diffSeries(mining.other.shipped,mining.other.extracted)',0,1,1, [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]),
+            TimeSeries('diffSeries(mining.diamond.shipped,mining.diamond.extracted)',0,1,1, [0,-2,0,0,6,-10,0,0,42,-68,0,0,288,-466,0]),
+            TimeSeries('diffSeries(mining.graphite.shipped,mining.graphite.extracted)',0,1,1, [None,-6.7,8,-4.5,6,6.7,4,-11.9,2,10.11,0,-11.13,None,17.15,-4,-11.17,None,18.19,-8,-11.21,-10]),
+            TimeSeries('diffSeries(mining.carbon.shipped,mining.carbon.extracted)',0,1,1, [-4.08,None,0.0,6.02,4.13,-1.23,12.79,14.97,2.07,17.04,0.13,-3.36]),
+        ]
+        result = functions.diffSeriesLists({}, seriesList1, seriesList2)
+        for i, series in enumerate(result):
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
+        self.assertEqual(result, expectedResult)
+
+    def test_multiplySeriesLists(self):
+        seriesList1, seriesList2 = self._get_aggregateSeriesLists_input_data()
+        expectedResult = [
+            TimeSeries('multiplySeries(mining.other.shipped,mining.other.extracted)',0,1,1, [1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400]),
+            TimeSeries('multiplySeries(mining.diamond.shipped,mining.diamond.extracted)',0,1,1, [0,-1,1,4,-9,-25,64,169,-441,-1156,3025,7921,-20736,-54289,142129]),
+            TimeSeries('multiplySeries(mining.graphite.shipped,mining.graphite.extracted)',0,1,1, [None,20.7,None,None,None,None,None,-26.7,None,None,None,12.13,None,-42.45,None,80.85,None,None,None,181.89,None]),
+            TimeSeries('multiplySeries(mining.carbon.shipped,mining.carbon.extracted)',0,1,1, [22.68,None,7.39,None,16.95,None,-40.82,-21.42,None,-72.06,None,49.51]),
+        ]
+        result = functions.multiplySeriesLists({}, seriesList1, seriesList2)
+        for i, series in enumerate(result):
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
+        self.assertEqual(result, expectedResult)
+
+    def test_aggregateSeriesLists_max(self):
+        seriesList1, seriesList2 = self._get_aggregateSeriesLists_input_data()
+        expectedResult = [
+            TimeSeries('maxSeries(mining.other.shipped,mining.other.extracted)',0,1,1, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
+            TimeSeries('maxSeries(mining.diamond.shipped,mining.diamond.extracted)',0,1,1, [0,1,-1,2,3,5,-8,13,21,34,-55,89,144,233,-377]),
+            TimeSeries('maxSeries(mining.graphite.shipped,mining.graphite.extracted)',0,1,1, [None,9,8,-4.5,6,6.7,4,3,2,10.111,0,-1,None,14.15,-4,-5,None,18.19,-8,-9,-10]),
+            TimeSeries('maxSeries(mining.carbon.shipped,mining.carbon.extracted)',0,1,1, [7.22,None,2.718,6.022,6.674,-1.234,6.626,1.602,2.067,9.274,0.128,8.912]),
+        ]
+        result = functions.aggregateSeriesLists({}, seriesList1, seriesList2, 'max')
+        self.assertEqual(result, expectedResult)
+
+    def test_aggregateSeriesLists_min(self):
+        seriesList1, seriesList2 = self._get_aggregateSeriesLists_input_data()
+        expectedResult = [
+            TimeSeries('minSeries(mining.other.shipped,mining.other.extracted)',0,1,1, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
+            TimeSeries('minSeries(mining.diamond.shipped,mining.diamond.extracted)',0,1,1, [0,-1,-1,2,-3,-5,-8,13,-21,-34,-55,89,-144,-233,-377]),
+            TimeSeries('minSeries(mining.graphite.shipped,mining.graphite.extracted)',0,1,1, [None,2.3,8,-4.5,6,6.7,4,-8.9,2,10.111,0,-12.13,None,-3,-4,-16.17,None,18.19,-8,-20.21,-10]),
+            TimeSeries('minSeries(mining.carbon.shipped,mining.carbon.extracted)',0,1,1, [3.141,None,2.718,6.022,2.54,-1.234,-6.16,-13.37,2.067,-7.77,0.128,5.555]),
+        ]
+        result = functions.aggregateSeriesLists({}, seriesList1, seriesList2, 'min')
+        self.assertEqual(result, expectedResult)
+
+    def test_aggregateSeriesLists_avg(self):
+        seriesList1, seriesList2 = self._get_aggregateSeriesLists_input_data()
+        expectedResult = [
+            TimeSeries('avgSeries(mining.other.shipped,mining.other.extracted)',0,1,1, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]),
+            TimeSeries('avgSeries(mining.diamond.shipped,mining.diamond.extracted)',0,1,1, [0.0,0.0,-1.0,2.0,0.0,0.0,-8.0,13.0,0.0,0.0,-55.0,89.0,0.0,0.0,-377.0]),
+            TimeSeries('avgSeries(mining.graphite.shipped,mining.graphite.extracted)',0,1,1, [None,5.65,8.0,-4.5,6.0,6.7,4.0,-2.95,2.0,10.11,0.0,-6.57,None,5.58,-4.0,-10.59,None,18.19,-8.0,-14.61,-10.0]),
+            TimeSeries('avgSeries(mining.carbon.shipped,mining.carbon.extracted)',0,1,1, [5.18,None,2.72,6.02,4.61,-1.23,0.23,-5.88,2.07,0.75,0.13,7.23]),
+        ]
+        result = functions.aggregateSeriesLists({}, seriesList1, seriesList2, 'avg')
+        for i, series in enumerate(result):
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
         self.assertEqual(result, expectedResult)
 
     def test_multiplySeries_single(self):
@@ -2554,8 +2669,7 @@ class FunctionsTest(TestCase):
         limit = len(seriesList) - 1
         results = functions.limit({}, seriesList, limit)
         self.assertEqual(len(results), limit,
-            "More than {0} results returned".format(limit),
-        )
+                         "More than {0} results returned".format(limit))
 
     def _verify_series_options(self, seriesList, name, value):
         """
@@ -2612,7 +2726,7 @@ class FunctionsTest(TestCase):
         )
         message = r"verticalLine\(\): timestamp 3600 exists before start of range"
         with self.assertRaisesRegexp(ValueError, message):
-            result = functions.verticalLine(requestContext, "01:0019700101", "foo")
+            _ = functions.verticalLine(requestContext, "01:0019700101", "foo")
 
     def test_vertical_line_after_end(self):
         requestContext = self._build_requestContext(
@@ -2622,7 +2736,7 @@ class FunctionsTest(TestCase):
         )
         message = r"verticalLine\(\): timestamp 31539600 exists after end of range"
         with self.assertRaisesRegexp(ValueError, message):
-            result = functions.verticalLine(requestContext, "01:0019710101", "foo")
+            _ = functions.verticalLine(requestContext, "01:0019710101", "foo")
 
     def test_line_width(self):
         seriesList = self._generate_series_list()
@@ -2662,18 +2776,18 @@ class FunctionsTest(TestCase):
         results = functions.transformNull({}, copy.deepcopy(seriesList), transform)
 
         for counter, series in enumerate(seriesList):
-            if not None in series:
+            if None not in series:
                 continue
             # If the None values weren't transformed, there is a problem
             self.assertNotIn(None, results[counter],
-                "tranformNull should remove all None values",
-            )
+                             "tranformNull should remove all None values")
             # Anywhere a None was in the original series, verify it
             # was transformed to the given value it should be.
             for i, value in enumerate(series):
                 if value is None:
                     result_val = results[counter][i]
-                    self.assertEqual(transform, result_val,
+                    self.assertEqual(
+                        transform, result_val,
                         "Transformed value should be {0}, not {1}".format(transform, result_val),
                     )
 
@@ -2683,12 +2797,12 @@ class FunctionsTest(TestCase):
         referenceSeries = copy.deepcopy(seriesList[0])
         for k, v in enumerate(referenceSeries):
             if k % 2 != 0:
-              referenceSeries[k] = None
+                referenceSeries[k] = None
 
         results = functions.transformNull({}, copy.deepcopy(seriesList), transform, [referenceSeries])
 
         for counter, series in enumerate(seriesList):
-            if not None in series:
+            if None not in series:
                 continue
 
             # Anywhere a None was in the original series, verify it
@@ -2697,7 +2811,8 @@ class FunctionsTest(TestCase):
             for i, value in enumerate(series):
                 if value is None and referenceSeries[i] is not None:
                     result_val = results[counter][i]
-                    self.assertEqual(transform, result_val,
+                    self.assertEqual(
+                        transform, result_val,
                         "Transformed value should be {0}, not {1}".format(transform, result_val),
                     )
 
@@ -2709,18 +2824,18 @@ class FunctionsTest(TestCase):
         results = functions.transformNull({}, copy.deepcopy(seriesList), transform, [referenceSeries])
 
         for counter, series in enumerate(seriesList):
-            if not None in series:
+            if None not in series:
                 continue
             # If the None values weren't transformed, there is a problem
             self.assertNotIn(None, results[counter],
-                "tranformNull should remove all None values",
-            )
+                             "tranformNull should remove all None values")
             # Anywhere a None was in the original series, verify it
             # was transformed to the given value if a value existed
             for i, value in enumerate(series):
                 if value is None:
                     result_val = results[counter][i]
-                    self.assertEqual(transform, result_val,
+                    self.assertEqual(
+                        transform, result_val,
                         "Transformed value should be {0}, not {1}".format(transform, result_val),
                     )
 
@@ -2827,8 +2942,7 @@ class FunctionsTest(TestCase):
         results = functions.aliasSub({}, seriesList, r"^\w+", substitution)
         for series in results:
             self.assertTrue(series.name.startswith(substitution),
-                    "aliasSub should replace the name with {0}".format(substitution),
-            )
+                            "aliasSub should replace the name with {0}".format(substitution))
 
     def test_alias_query(self):
 
@@ -2890,9 +3004,6 @@ class FunctionsTest(TestCase):
         seriesList = self._generate_series_list()
 
         def verify_node_name(cases, expected, *nodes):
-            if isinstance(nodes, int):
-                node_number = [nodes]
-
             # Use deepcopy so the original seriesList is unmodified
             results = functions.aliasByNode({}, copy.deepcopy(cases), *nodes)
 
@@ -3019,17 +3130,13 @@ class FunctionsTest(TestCase):
             series = TimeSeries(expected, 0, 1, 1, [1])
             expectedResult.append(series)
         for i, series in enumerate(seriesList):
-          verify_groupByNode([expectedResult[i]], 3, [series])
+            verify_groupByNode([expectedResult[i]], 3, [series])
 
     def test_groupByNodes(self):
         seriesList, inputList = self._generate_mr_series()
 
         def verify_groupByNodes(expectedResult, func, *nodes):
-            if isinstance(nodes, int):
-                node_number = [nodes]
-
             results = functions.groupByNodes({}, copy.deepcopy(seriesList), func, *nodes)
-
             self.assertEqual(results, expectedResult)
 
         expectedResult = [
@@ -3057,6 +3164,11 @@ class FunctionsTest(TestCase):
             TimeSeries('server2.group',0,1,1,[None]),
         ]
         verify_groupByNodes(expectedResult, "range",  1, 0)
+
+        expectedResult = [
+            TimeSeries('',0,1,1,[None]),
+        ]
+        verify_groupByNodes(expectedResult, "average")
 
     def test_exclude(self):
         seriesList = self._gen_series_list_with_data(
@@ -3116,11 +3228,9 @@ class FunctionsTest(TestCase):
 
         for i, series in enumerate(results):
             self.assertTrue(hasattr(series, "color"),
-                "The transformed seriesList is missing the 'color' attribute",
-            )
+                            "The transformed seriesList is missing the 'color' attribute")
             self.assertFalse(hasattr(seriesList[i], "color"),
-                "The original seriesList shouldn't have a 'color' attribute",
-            )
+                             "The original seriesList shouldn't have a 'color' attribute")
             self.assertEqual(series.color, color)
 
     def test_substr(self):
@@ -3243,9 +3353,9 @@ class FunctionsTest(TestCase):
         result = functions.logarithm(requestContext, seriesList)
         # Round values to 7 digits for easier equality testing
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,7)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,7)
         self.assertEqual(result, expectedResult)
 
     def test_maximumAbove(self):
@@ -3579,7 +3689,7 @@ class FunctionsTest(TestCase):
 
     def test_constantLine(self):
         requestContext = {'startTime': datetime(2014,3,12,2,0,0,2,pytz.timezone(settings.TIME_ZONE)), 'endTime':datetime(2014,3,12,3,0,0,2,pytz.timezone(settings.TIME_ZONE))}
-        results = functions.constantLine(requestContext, [1])
+        _ = functions.constantLine(requestContext, [1])
 
     def test_aggregateLine_default(self):
         seriesList = self._gen_series_list_with_data(
@@ -3713,15 +3823,15 @@ class FunctionsTest(TestCase):
             ]
         )
 
-        with self.assertRaisesRegexp(ValueError, '^Unsupported aggregation function: bad$'):
-          result = functions.aggregateLine(
-            self._build_requestContext(
-                startTime=datetime(1970,1,1,1,0,0,0,pytz.timezone(settings.TIME_ZONE)),
-                endTime=datetime(1970,1,1,1,0,0,0,pytz.timezone(settings.TIME_ZONE))
-            ),
-            seriesList,
-            'bad'
-        )
+        with self.assertRaisesRegexp(ValueError, '^Invalid parameters \\(Unsupported aggregation function: bad\\)$'):
+            functions.aggregateLine(
+                self._build_requestContext(
+                    startTime=datetime(1970,1,1,1,0,0,0,pytz.timezone(settings.TIME_ZONE)),
+                    endTime=datetime(1970,1,1,1,0,0,0,pytz.timezone(settings.TIME_ZONE))
+                ),
+                seriesList,
+                'bad'
+            )
 
     def test_threshold_default(self):
         expectedResult = [
@@ -4341,7 +4451,7 @@ class FunctionsTest(TestCase):
             )
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
-            with self.assertRaisesRegexp(ValueError, '^Unsupported aggregation function: invalid$'):
+            with self.assertRaisesRegexp(ValueError, '^Invalid parameters \\(Unsupported aggregation function: invalid\\)$'):
                 functions.movingWindow(request_context, seriesList, 5, 'invalid')
 
     def test_movingWindow_xFilesFactor(self):
@@ -4361,7 +4471,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingAverage(collectd.test-db0.load.value,10)', 20, 30, 1, [None, None, None, None, None, 2.0, 2.5, 3.0, 3.5, 4.0])
+            TimeSeries('movingAverage(collectd.test-db0.load.value,10)', 20, 30, 1, [None, None, None, None, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5])
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4425,7 +4535,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingMedian(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4])
+            TimeSeries('movingMedian(collectd.test-db0.load.value,10)', 20, 30, 1, [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5])
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4479,7 +4589,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingMedian(collectd.test-db0.load.value,60)', 660, 700, 1, [x - 0.5 for x in range(30, 70)]),
+            TimeSeries('movingMedian(collectd.test-db0.load.value,60)', 660, 700, 1, [x + 0.5 for x in range(30, 70)]),
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4510,7 +4620,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingMedian(collectd.test-db0.load.value,"-1min")', 660, 700, 1, [x - 0.5 for x in range(30, 70)]),
+            TimeSeries('movingMedian(collectd.test-db0.load.value,"-1min")', 660, 700, 1, [x + 0.5 for x in range(30, 70)]),
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4574,7 +4684,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingAverage(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0])
+            TimeSeries('movingAverage(collectd.test-db0.load.value,10)', 20, 30, 1, [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5])
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4629,10 +4739,10 @@ class FunctionsTest(TestCase):
 
         def frange(x,y,jump):
             while x<y:
-              yield x
-              x+=jump
+                yield x
+                x+=jump
         expectedResults = [
-            TimeSeries('movingAverage(collectd.test-db0.load.value,60)', 660, 700, 1, frange(29.5, 69.5, 1)),
+            TimeSeries('movingAverage(collectd.test-db0.load.value,60)', 660, 700, 1, frange(30.5, 70.5, 1)),
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4643,6 +4753,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, 60
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingAverage_stringWindowSize(self):
@@ -4663,11 +4774,11 @@ class FunctionsTest(TestCase):
 
         def frange(x,y,jump):
             while x<y:
-              yield x
-              x+=jump
+                yield x
+                x+=jump
 
         expectedResults = [
-            TimeSeries('movingAverage(collectd.test-db0.load.value,"-1min")', 660, 700, 1, frange(29.5, 69.5, 1)),
+            TimeSeries('movingAverage(collectd.test-db0.load.value,"-1min")', 660, 700, 1, frange(30.5, 70.5, 1)),
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4678,6 +4789,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, "-1min"
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingMin_emptySeriesList(self):
@@ -4732,7 +4844,7 @@ class FunctionsTest(TestCase):
             return seriesList
 
         expectedResults = [
-            TimeSeries('movingMin(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 2, 1, 1, 1, 1, 1, 1, 1, 1] )
+            TimeSeries('movingMin(collectd.test-db0.load.value,10)', 20, 30, 1, [2, 1, 1, 1, 1, 1, 1, 1, 1, 1] )
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4743,6 +4855,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, 10
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingMin_evaluateTarget_returns_empty_list(self):
@@ -4785,7 +4898,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingMin(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 10] + [1] * 8)
+            TimeSeries('movingMin(collectd.test-db0.load.value,10)', 20, 30, 1, [10] + [1] * 9)
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4796,6 +4909,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, 10
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingMin_stringWindowSize(self):
@@ -4880,7 +4994,7 @@ class FunctionsTest(TestCase):
             return seriesList
 
         expectedResults = [
-            TimeSeries('movingMax(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 1, 2, 2, 2, 2, 2, 2, 2, 2])
+            TimeSeries('movingMax(collectd.test-db0.load.value,10)', 20, 30, 1, [1, 2, 2, 2, 2, 2, 2, 2, 2, 2])
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4891,6 +5005,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, 10
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingMax_evaluateTarget_returns_empty_list(self):
@@ -4933,7 +5048,7 @@ class FunctionsTest(TestCase):
             )
 
         expectedResults = [
-            TimeSeries('movingMax(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 1, 2, 2, 2, 2, 2, 2, 2, 2])
+            TimeSeries('movingMax(collectd.test-db0.load.value,10)', 20, 30, 1, [1, 2, 2, 2, 2, 2, 2, 2, 2, 2])
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -4944,6 +5059,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, 10
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingMax_stringWindowSize(self):
@@ -5041,7 +5157,7 @@ class FunctionsTest(TestCase):
             return seriesList
 
         expectedResults = [
-            TimeSeries('movingSum(collectd.test-db0.load.value,10)', 20, 30, 1, [None, 0.0, 1.0, 3.0, 6.0, 10.0, 15.0, 21.0, 28.0, 36.0])
+            TimeSeries('movingSum(collectd.test-db0.load.value,10)', 20, 30, 1, [0.0, 1.0, 3.0, 6.0, 10.0, 15.0, 21.0, 28.0, 36.0, 45.0])
         ]
 
         with patch('graphite.render.functions.evaluateTarget', mock_evaluateTarget):
@@ -5052,6 +5168,7 @@ class FunctionsTest(TestCase):
                 ),
                 seriesList, 10
             )
+        self.assertEqual(list(result[0]), list(expectedResults[0]))
         self.assertEqual(result, expectedResults)
 
     def test_movingSum_evaluateTarget_returns_empty_list(self):
@@ -5163,8 +5280,8 @@ class FunctionsTest(TestCase):
 
         def hw_range(x,y,jump):
             while x<y:
-              yield (x/jump)%10
-              x+=jump
+                yield (x/jump) % 10
+                x+=jump
 
         def gen_seriesList(start=0, points=10):
             seriesList = [
@@ -5202,8 +5319,8 @@ class FunctionsTest(TestCase):
 
         def hw_range(x,y,jump):
             while x<y:
-              yield (x/jump)%10
-              x+=jump
+                yield (x/jump) % 10
+                x+=jump
 
         def gen_seriesList(start=0, points=10):
             seriesList = [
@@ -5243,8 +5360,8 @@ class FunctionsTest(TestCase):
 
         def hw_range(x,y,jump,t=0):
             while x<y:
-              yield t+(x/jump)%10
-              x+=jump
+                yield t + (x/jump) % 10
+                x+=jump
 
         def gen_seriesList(start=0, points=10):
             seriesList = [
@@ -5687,50 +5804,51 @@ class FunctionsTest(TestCase):
             data=[list(range(0, 240)), list(range(0, -240, -1)), [None] * 240, list(range(0, 480, 2))]
         )
 
-        expectedResults = {'sum' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "sum")', 0, 300, 60, [1770, 5370, 8970, 12570, None]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "sum")', 0, 300, 60, [-1770, -5370, -8970, -12570, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "sum")', 0, 300, 60, [None, None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "sum")', 0, 300, 60, [3540, 10740, 17940, 25140, None])
-        ],
-        'avg' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "avg")', 0, 300, 60, [29.5, 89.5, 149.5, 209.5, None]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "avg")', 0, 300, 60, [-29.5, -89.5, -149.5, -209.5, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "avg")', 0, 300, 60, [None, None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "avg")', 0, 300, 60, [59.0, 179.0, 299.0, 419.0, None])
-        ],
-        'last' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "last")', 0, 300, 60, [59, 119, 179, 239, None]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "last")', 0, 300, 60, [-59, -119, -179, -239, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "last")', 0, 300, 60, [None, None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "last")', 0, 300, 60, [118, 238, 358, 478, None])
-        ],
-        'max' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "max")', 0, 300, 60, [59, 119, 179, 239, None]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "max")', 0, 300, 60, [0, -60, -120, -180, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "max")', 0, 300, 60, [None, None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "max")', 0, 300, 60, [118, 238, 358, 478, None])
-        ],
-        'min' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "min")', 0, 300, 60, [0, 60, 120, 180, None]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "min")', 0, 300, 60, [-59, -119, -179, -239, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "min")', 0, 300, 60, [None, None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "min")', 0, 300, 60, [0, 120, 240, 360, None])
-        ],
+        expectedResults = {
+            'sum' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "sum")', 0, 300, 60, [1770, 5370, 8970, 12570, None]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "sum")', 0, 300, 60, [-1770, -5370, -8970, -12570, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "sum")', 0, 300, 60, [None, None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "sum")', 0, 300, 60, [3540, 10740, 17940, 25140, None])
+            ],
+            'avg' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "avg")', 0, 300, 60, [29.5, 89.5, 149.5, 209.5, None]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "avg")', 0, 300, 60, [-29.5, -89.5, -149.5, -209.5, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "avg")', 0, 300, 60, [None, None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "avg")', 0, 300, 60, [59.0, 179.0, 299.0, 419.0, None])
+            ],
+            'last' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "last")', 0, 300, 60, [59, 119, 179, 239, None]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "last")', 0, 300, 60, [-59, -119, -179, -239, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "last")', 0, 300, 60, [None, None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "last")', 0, 300, 60, [118, 238, 358, 478, None])
+            ],
+            'max' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "max")', 0, 300, 60, [59, 119, 179, 239, None]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "max")', 0, 300, 60, [0, -60, -120, -180, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "max")', 0, 300, 60, [None, None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "max")', 0, 300, 60, [118, 238, 358, 478, None])
+            ],
+            'min' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "min")', 0, 300, 60, [0, 60, 120, 180, None]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "min")', 0, 300, 60, [-59, -119, -179, -239, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "min")', 0, 300, 60, [None, None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "min")', 0, 300, 60, [0, 120, 240, 360, None])
+            ],
         }
 
         for func in expectedResults:
-          for series in expectedResults[func]:
-              series.pathExpression = series.name
-          result = functions.summarize(
-              self._build_requestContext(endTime=datetime(1970, 1, 1, 0, 4, 0, 0, pytz.timezone(settings.TIME_ZONE))),
-              seriesList,
-              "1minute",
-              func
-          )
-          self.maxDiff = None
-          self.assertEqual(list(result[0]), list(expectedResults[func][0]))
-          self.assertEqual(result, expectedResults[func])
+            for series in expectedResults[func]:
+                series.pathExpression = series.name
+            result = functions.summarize(
+                self._build_requestContext(endTime=datetime(1970, 1, 1, 0, 4, 0, 0, pytz.timezone(settings.TIME_ZONE))),
+                seriesList,
+                "1minute",
+                func
+            )
+            self.maxDiff = None
+            self.assertEqual(list(result[0]), list(expectedResults[func][0]))
+            self.assertEqual(result, expectedResults[func])
 
     def test_summarize_1minute_alignToFrom(self):
         seriesList = self._gen_series_list_with_data(
@@ -5740,41 +5858,42 @@ class FunctionsTest(TestCase):
             data=[list(range(0, 240)), list(range(0, -240, -1)), [None] * 240, list(range(0, 480, 2))]
         )
 
-        expectedResults = {'sum' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "sum", true)', 0, 240, 60, [1770, 5370, 8970, 12570]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "sum", true)', 0, 240, 60, [-1770, -5370, -8970, -12570]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "sum", true)', 0, 240, 60, [None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "sum", true)', 0, 240, 60, [3540, 10740, 17940, 25140])
-        ],
-        'avg' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "avg", true)', 0, 240, 60, [29.5, 89.5, 149.5, 209.5]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "avg", true)', 0, 240, 60, [-29.5, -89.5, -149.5, -209.5]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "avg", true)', 0, 240, 60, [None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "avg", true)', 0, 240, 60, [59.0, 179.0, 299.0, 419.0])
-        ],
-        'last' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "last", true)', 0, 240, 60, [59, 119, 179, 239]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "last", true)', 0, 240, 60, [-59, -119, -179, -239]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "last", true)', 0, 240, 60, [None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "last", true)', 0, 240, 60, [118, 238, 358, 478])
-        ],
-        'max' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "max", true)', 0, 240, 60, [59, 119, 179, 239]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "max", true)', 0, 240, 60, [0, -60, -120, -180]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "max", true)', 0, 240, 60, [None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "max", true)', 0, 240, 60, [118, 238, 358, 478])
-        ],
-        'min' : [
-            TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "min", true)', 0, 240, 60, [0, 60, 120, 180]),
-            TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "min", true)', 0, 240, 60, [-59, -119, -179, -239]),
-            TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "min", true)', 0, 240, 60, [None, None, None, None]),
-            TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "min", true)', 0, 240, 60, [0, 120, 240, 360])
-        ],
+        expectedResults = {
+            'sum' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "sum", true)', 0, 240, 60, [1770, 5370, 8970, 12570]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "sum", true)', 0, 240, 60, [-1770, -5370, -8970, -12570]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "sum", true)', 0, 240, 60, [None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "sum", true)', 0, 240, 60, [3540, 10740, 17940, 25140])
+            ],
+            'avg' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "avg", true)', 0, 240, 60, [29.5, 89.5, 149.5, 209.5]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "avg", true)', 0, 240, 60, [-29.5, -89.5, -149.5, -209.5]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "avg", true)', 0, 240, 60, [None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "avg", true)', 0, 240, 60, [59.0, 179.0, 299.0, 419.0])
+            ],
+            'last' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "last", true)', 0, 240, 60, [59, 119, 179, 239]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "last", true)', 0, 240, 60, [-59, -119, -179, -239]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "last", true)', 0, 240, 60, [None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "last", true)', 0, 240, 60, [118, 238, 358, 478])
+            ],
+            'max' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "max", true)', 0, 240, 60, [59, 119, 179, 239]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "max", true)', 0, 240, 60, [0, -60, -120, -180]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "max", true)', 0, 240, 60, [None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "max", true)', 0, 240, 60, [118, 238, 358, 478])
+            ],
+            'min' : [
+                TimeSeries('summarize(servers.s1.disk.bytes_used, "1minute", "min", true)', 0, 240, 60, [0, 60, 120, 180]),
+                TimeSeries('summarize(servers.s1.disk.bytes_free, "1minute", "min", true)', 0, 240, 60, [-59, -119, -179, -239]),
+                TimeSeries('summarize(servers.s2.disk.bytes_used, "1minute", "min", true)', 0, 240, 60, [None, None, None, None]),
+                TimeSeries('summarize(servers.s2.disk.bytes_free, "1minute", "min", true)', 0, 240, 60, [0, 120, 240, 360])
+            ],
         }
 
         for func in expectedResults:
-          for series in expectedResults[func]:
-              series.pathExpression = series.name
+            for series in expectedResults[func]:
+                series.pathExpression = series.name
 
         result = functions.summarize(
           self._build_requestContext(endTime=datetime(1970, 1, 1, 0, 4, 0, 0, pytz.timezone(settings.TIME_ZONE))),
@@ -6104,9 +6223,9 @@ class FunctionsTest(TestCase):
             result = evaluateTarget(request_context, query)
 
         for i, series in enumerate(result):
-          for k, v in enumerate(series):
-            if type(v) is float:
-              series[k] = round(v,2)
+            for k, v in enumerate(series):
+                if type(v) is float:
+                    series[k] = round(v,2)
 
         self.assertEqual(result, expectedResult)
 
@@ -6176,7 +6295,7 @@ class FunctionsTest(TestCase):
                 },
                 {
                     'name': 'total',
-                    'type': 'seriesList'
+                    'type': 'any'
                 },
                 {
                     'multiple': True,
